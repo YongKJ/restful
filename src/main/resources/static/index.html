@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>Restful风格的API接口调用练习</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body style="text-align: center;background: url(img/Emilia.28ba9168.jpg) no-repeat top;background-size:cover;background-attachment: fixed;">
+  
+  <div id="particles-js"></div>
+  
+  <div id="student" class="container-fluid">
+    
+    <br /><br />
+    
+    <div class="container-fluid" style="position:relative;z-index: 3;">
+      <ul class="list-group">
+        <li class="list-group-item" style="padding:0px;">
+          <div class="table-responsive">
+            <table class="table table-striped" style="margin: 0px;">
+            	<thead>
+            		<tr>
+            			<th style="text-align: center;">#</th>
+            			<th style="text-align: center;">名称</th>
+            			<th style="text-align: center;">成绩</th>
+            			<th style="text-align: center;">地址</th>
+            			<th style="text-align: center;width: 250px;">操作</th>
+            		</tr>
+            	</thead>
+            	<tbody id="student-show">
+            		<tr>
+            			<td>1</td>
+            			<td>张三</td>
+            			<td>67</td>
+            			<td>韶关</td>
+            			<td>
+                   <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#addStudent">增加</button>
+                   <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modStudent" onclick="modStudentInit(1)">修改</button>
+                   <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delStudent" onclick="delStudentInit(1)">删除</button>
+                 </td>
+            		</tr>
+            		<tr>
+            			<td>1</td>
+            			<td>张三</td>
+            			<td>67</td>
+            			<td>韶关</td>
+            			<td>
+                   <button type="button" class="btn btn-primary btn-xs">增加</button>
+                   <button type="button" class="btn btn-warning btn-xs">修改</button>
+                   <button type="button" class="btn btn-danger btn-xs">删除</button>
+                 </td>
+            		</tr>
+            		<tr>
+            			<td>1</td>
+            			<td>张三</td>
+            			<td>67</td>
+            			<td>韶关</td>
+            			<td>
+                   <button type="button" class="btn btn-primary btn-xs">增加</button>
+                   <button type="button" class="btn btn-warning btn-xs">修改</button>
+                   <button type="button" class="btn btn-danger btn-xs">删除</button>
+                 </td>
+            		</tr>
+            	</tbody>
+            </table>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="modal fade bs-example-modal-sm" id="addStudent" tabindex="-1" role="ialog" aria-labelledby="loginModelTitle">
+  	<div class="modal-dialog modal-sm" role="document">
+  		<div class="modal-content" style="width: 350px;margin:0 auto;">
+  			<div class="modal-header">
+  				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  					<span aria-hidden="true">&times;</span>
+  				</button>
+  				<h4 class="modal-title" id="loginModelTitle" style="float: left;">
+  					<span class="glyphicon glyphicon-user"></span> 添加学生
+  				</h4>
+  			</div>
+  			<div class="modal-body" style="position: relative; right: 12px; top: 8px;">
+  				<form class="form-horizontal formRegister">
+  					<div class="form-group" id="accountidbox">
+  						<label for="accountid" id="accountidtitle" class="col-sm-3 col-xs-3 control-label">名称:</label>
+  						<div class="col-sm-9 col-xs-9">
+  							<input type="text" class="form-control" id="addSname" placeholder="请输入学生名称……">
+  						</div>
+  					</div>
+  					<div class="form-group" id="accountpwdbox">
+  						<label for="accountpwd" id="accountpwdtitle" class="col-sm-3 col-xs-3 control-label">成绩:</label>
+  						<div class="col-sm-9 col-xs-9">
+  							<input type="text" class="form-control" id="addScore" placeholder="请输入学生成绩……">
+  						</div>
+  					</div>
+  					<div class="form-group" id="accountpwdbox">
+  						<label for="accountpwd" id="accountpwdtitle" class="col-sm-3 col-xs-3 control-label">地址:</label>
+  						<div class="col-sm-9 col-xs-9">
+  							<input type="text" class="form-control" id="addAddress" placeholder="请输入学生地址……">
+  						</div>
+  					</div>
+  					<div class="form-group hidden" id="vercodebox"></div>
+  					<div id="alertbox" role="alert"></div>
+  				</form>
+  			</div>
+  			<div class="modal-footer">
+  				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+  				<button type="button" id="dologinButton" class="btn btn-primary" onclick="addStudent()">添加</button>
+  			</div>
+  		</div>
+  	</div>
+  </div>
+  
+  <div class="modal fade bs-example-modal-sm" id="modStudent" tabindex="-1" role="ialog" aria-labelledby="loginModelTitle">
+  	<div class="modal-dialog modal-sm" role="document">
+  		<div class="modal-content" style="width: 350px;margin:0 auto;">
+  			<div class="modal-header">
+  				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  					<span aria-hidden="true">&times;</span>
+  				</button>
+  				<h4 class="modal-title" id="loginModelTitle" style="float: left;">
+  					<span class="glyphicon glyphicon-user"></span> 修改学生
+  				</h4>
+  			</div>
+  			<div class="modal-body" style="position: relative; right: 12px; top: 8px;">
+  				<form class="form-horizontal formRegister"><div class="form-group" id="accountidbox">
+  						<label for="accountid" id="accountidtitle" class="col-sm-3 col-xs-3 control-label">编号:</label>
+  						<div class="col-sm-9 col-xs-9">
+  							<input type="text" class="form-control" id="modSid" value="1" disabled>
+  						</div>
+  					</div>
+  					<div class="form-group" id="accountidbox">
+  						<label for="accountid" id="accountidtitle" class="col-sm-3 col-xs-3 control-label">名称:</label>
+  						<div class="col-sm-9 col-xs-9">
+  							<input type="text" class="form-control" id="modSname" placeholder="请输入学生名称……" value="张三">
+  						</div>
+  					</div>
+  					<div class="form-group" id="accountpwdbox">
+  						<label for="accountpwd" id="accountpwdtitle" class="col-sm-3 col-xs-3 control-label">成绩:</label>
+  						<div class="col-sm-9 col-xs-9">
+  							<input type="text" class="form-control" id="modScore" placeholder="请输入学生成绩……" value="67">
+  						</div>
+  					</div>
+  					<div class="form-group" id="accountpwdbox">
+  						<label for="accountpwd" id="accountpwdtitle" class="col-sm-3 col-xs-3 control-label">地址:</label>
+  						<div class="col-sm-9 col-xs-9">
+  							<input type="text" class="form-control" id="modAddress" placeholder="请输入学生地址……" value="韶关">
+  						</div>
+  					</div>
+  					<div class="form-group hidden" id="vercodebox"></div>
+  					<div id="alertbox" role="alert"></div>
+  				</form>
+  			</div>
+  			<div class="modal-footer">
+  				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+  				<button type="button" id="dologinButton" class="btn btn-warning" onclick="modStudent()">修改</button>
+  			</div>
+  		</div>
+  	</div>
+  </div>
+  
+  <div class="modal fade bs-example-modal-sm" id="delStudent" tabindex="-1" role="ialog" aria-labelledby="loginModelTitle">
+  	<div class="modal-dialog modal-sm" role="document">
+  		<div class="modal-content" style="width: 350px;margin:0 auto;">
+  			<div class="modal-header">
+  				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  					<span aria-hidden="true">&times;</span>
+  				</button>
+  				<h4 class="modal-title" id="loginModelTitle" style="float: left;">
+  					<span class="glyphicon glyphicon-user"></span> 删除学生
+  				</h4>
+  			</div>
+  			<div class="modal-body" style="position: relative; right: 12px; top: 8px;">
+          <div class="alert alert-warning" style="text-align: left;position: relative; left: 12px;">
+          	<strong>警告！</strong>此操作将永久删除该学生信息，是否继续？
+          </div>
+  			</div>
+  			<div class="modal-footer">
+  				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+  				<button type="button" id="delStudentButton" class="btn btn-danger" onclick="delStudent(0)">删除</button>
+  			</div>
+  		</div>
+  	</div>
+  </div>
+  
+  <script src="js/particles.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/student.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
